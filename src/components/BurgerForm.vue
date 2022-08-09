@@ -117,6 +117,8 @@ export default {
       }
 
       console.log(this.datas);
+      invertdata(this.datas);
+      console.log(this.datas);
 
       var data4 = new Date(this.datas);
 
@@ -168,7 +170,16 @@ export default {
         this.criacategoria = 0;
         this.categoria = "";
       };
-
+    },
+    invertdata(data){
+      console.log(data);
+      var num1 = data[0];
+      var num2 = data[1];
+      data[0] = data[3];
+      data[1] = data[4];
+      data[3] = num1;
+      data[4] = num2;
+      console.log(data);
     }
   },
   mounted () {

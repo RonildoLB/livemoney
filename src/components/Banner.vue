@@ -2,7 +2,8 @@
   <div class="main-banner" >
     <div class="item"><h2>Receitas: R$ {{ receita_dia.toFixed(2).replace(".", ",") }}</h2></div>
     <div class="item"><h2>Despesas: R$ {{ despesa_dia.toFixed(2).replace(".", ",") }}</h2></div>
-    <div class="item"><h2>Saldo: R$ {{ saldo_dia.toFixed(2).replace(".", ",") }}</h2></div>
+    
+    <div class="item"><hr><br><h2>Saldo: R$ {{ saldo_dia.toFixed(2).replace(".", ",") }}</h2></div>
   </div>
 </template>
 

@@ -148,6 +148,7 @@ export default {
   },
   mounted () {
     this.cookie = this.getCookie("loginusuario");
+    if(!this.cookie){this.$router.push('/login');}
     this.loginuser = this.cookie;
     this.emailcookie = this.getCookie("emailusuario");
     this.nomecookie = this.getCookie("nomeusuario");
