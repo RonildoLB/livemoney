@@ -36,7 +36,6 @@
         <router-link to="/"><input class="submit-btn" type="button" value="Cancelar"></router-link>
       </div>
     </form>
-    {{criacategoria}}
   </div>
   </div>
 </template>
