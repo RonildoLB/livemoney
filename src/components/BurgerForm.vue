@@ -110,19 +110,17 @@ export default {
         })
 
         const resp = await req2.json()
-        console.log(resp)
 
         this.category_id = resp.data.id
-        console.log(resp.data.id)
       }
 
-      console.log(this.datas);
-      invertdata(this.datas);
-      console.log(this.datas);
+      var dia  = this.datas.split("/")[0];
+      var mes  = this.datas.split("/")[1];
+      var ano  = this.datas.split("/")[2];
 
-      var data4 = new Date(this.datas);
+      var data5 =  ("0"+mes).slice(-2) + '/' + ("0"+dia).slice(-2) + '/' + ano;
 
-      console.log(data4);
+      var data4 = new Date(data5);
 
       const data = {
         user_id: this.id_usuario,
@@ -159,8 +157,6 @@ export default {
       // limpar campos
       this.description = ""
       this.value = ""
-      this.datas = ""
-      this.category_id = ""
       this.category_id = ""
       this.type = ""
       
@@ -170,16 +166,6 @@ export default {
         this.criacategoria = 0;
         this.categoria = "";
       };
-    },
-    invertdata(data){
-      console.log(data);
-      var num1 = data[0];
-      var num2 = data[1];
-      data[0] = data[3];
-      data[1] = data[4];
-      data[3] = num1;
-      data[4] = num2;
-      console.log(data);
     }
   },
   mounted () {

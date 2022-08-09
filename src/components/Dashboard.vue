@@ -36,7 +36,7 @@
             <img id="logo" src="/img/editar.png" alt="Editar">
           </button>
           </router-link>
-          <button class="delete-btn" @click="deleteTrans(transacao.id)">
+          <button class="delete-btn" @click="deleteTrans(transacao.id); $emit('reloadPage')">
             <img id="logo" src="/img/lixeira.png" alt="Excluir">
           </button>
         </div>
@@ -71,6 +71,7 @@
     date2: String,
     exist: Boolean,
   },
+  emits: ['reloadPage'],
   methods: {
     getCookie(nome) {
       var nomeCookie = nome + "=";
@@ -87,7 +88,6 @@
         method: "DELETE",
         headers: {  "Authorization" : "Bearer "+this.login }
       });
-      location.reload();
     },
     async updateTrans(event, id) {
       

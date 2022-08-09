@@ -8,8 +8,7 @@
       &nbsp;&nbsp;&nbsp;<a @click="adicionardia()"><img src="/img/setadireita.png"></a></h1>
     </div>
     <div class="main-container">
-      <Dashboard :transacoes="transacoes" :status="status" :date2="date2" :exist="exist" :loginuser="loginuser"/>
-      
+      <Dashboard @reloadPage="getLista"  :transacoes="transacoes" :status="status" :date2="date2" :exist="exist" :loginuser="loginuser"/>
     </div>
   </div>
 </template>
@@ -59,14 +58,12 @@ export default {
         date3.setDate(date3.getDate()+1);
         this.date2 = new Date(date3).toLocaleDateString();
         this.date = date3;
-        this.getLista();
       },
       async subdia() {
         var date3 = this.date;
         date3.setDate(date3.getDate()-1);
         this.date2 = new Date(date3).toLocaleDateString();
         this.date = date3;
-        this.getLista();
       },
     async getLista() {
 
@@ -79,7 +76,7 @@ export default {
 
       const data = await req.json()
 
-      if(!data.data) {
+      if(data.data.length == 0) {
         this.exist = false;
       }
 
@@ -135,13 +132,9 @@ export default {
       for(var i = 0; i<this.transacoes.length; ++i){
       
       date = this.transacoes[i]["date"];
-      console.log(date);
       date2 = new Date(date);
-      console.log(date2);
       date2.setDate(date2.getDate()+1);
-      console.log(date2);
       this.transacoes[i]["date"] = date2.toLocaleDateString();
-      console.log(this.transacoes[i]["date"]);
     }
     
     }
