@@ -116,7 +116,7 @@
   }
 
   #burger-table {
-    max-width: 1200px;
+    max-width: 98%;
   }
 
   #burger-table-heading,
