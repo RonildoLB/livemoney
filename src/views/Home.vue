@@ -9,6 +9,7 @@
     </div>
     <div class="main-container">
       <Dashboard :transacoes="transacoes" :status="status" :date2="date2" :exist="exist" :loginuser="loginuser"/>
+      
     </div>
   </div>
 </template>
@@ -39,7 +40,7 @@ export default {
       emailcookie: "",
       status: null,
       exist: true,
-      loginuser: ""
+      loginuser: "",
     }
   },
   methods: {
@@ -95,9 +96,9 @@ export default {
 
       this.transacoes = data.data
 
-      this.formatoData();
+      this.calcSaldo();
 
-      this.calcSaldo()
+      this.formatoData();
 
       this.formatoCat();
     },
@@ -118,6 +119,7 @@ export default {
       for(var i=0; i < this.transacoes.length; i++){
         numero = parseFloat(this.transacoes[i]["value"]);
         if(this.transacoes[i]["type"] === "receita"){
+          this.transacoes[i]["type"]
           this.saldo_dia += numero;
           this.receita_dia += numero;
         }
@@ -127,13 +129,15 @@ export default {
         }
       }
     },
-    formatoData(){
-      var data4 = new Date();
-      for (i=0; i<this.transacoes.length; i++){
-        data4 = this.transacoes[i]["date"];
-        this.transacoes[i]["date"] = data4.setDate(data4.getDate()+1).toLocaleDateString();
-        
-      }
+    async formatoData(){
+      var date;
+      var date2;
+      for(var i = 0; i<this.transacoes.length; ++i){
+      date = this.transacoes[i]["date"];
+      date2 = new Date(date);
+      date2.setDate(date2.getDate()+1);
+      this.transacoes[i]["date"] = date2.toLocaleDateString();
+    }
     
     }
   },

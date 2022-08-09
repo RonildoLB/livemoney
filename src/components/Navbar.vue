@@ -13,7 +13,7 @@
             </router-link></div>
         </div>
         <div style="width: 50%; justify-content: flex-end;">
-          <router-link to="/transacao"><button>ADICIONAR TRANSAÇÃO</button></router-link>
+          <router-link to="/transacao"><button v-show="cookie">ADICIONAR TRANSAÇÃO</button></router-link>
         </div>
       </div>
     </div>

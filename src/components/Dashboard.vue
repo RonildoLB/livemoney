@@ -15,7 +15,7 @@
     </div>
     <div id="burger-table-rows">
       <div class="burger-table-row" v-for="transacao in transacoes" :key="transacao.id">
-        <template v-if="true">
+        <template v-if="transacao.date === date2">
         <div class="order-number">{{ transacao.id }}</div>
         <div>{{ transacao.description }}</div>
         <div>R$ {{ transacao.value.toFixed(2).toString().replace(".", ",") }}</div>
