@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h2>Transações: </h2>
+  <h2 style="margin-bottom: 10px">Transações: </h2>
   <div id="burger-table" v-if="transacoes">
     <div>
       <div id="burger-table-heading">
@@ -16,10 +16,10 @@
     <div id="burger-table-rows">
       <div class="burger-table-row" v-for="transacao in transacoes" :key="transacao.id">
         <template v-if="transacao.date === date2">
-        <div class="order-number">{{ transacao.id }}</div>
-        <div>{{ transacao.description }}</div>
-        <div>R$ {{ transacao.value.toFixed(2).toString().replace(".", ",") }}</div>
-        <div>{{ transacao.category_id }}</div>
+        <div class="order-number" >{{ transacao.id }}</div>
+        <div class="valor">{{ transacao.description }}</div>
+        <div class="valor">R$ {{ transacao.value.toFixed(2).toString().replace(".", ",") }}</div>
+        <div class="valor">{{ transacao.category_id }}</div>
         <div class="order-tipo">{{ transacao.type }}</div>
         <div class="order-data">
           <div >{{ transacao.date }}</div>
@@ -32,7 +32,7 @@
         </div>
         <div class="order-btn">
           <router-link to="/alterar">
-          <button class="delete-btn">
+          <button class="delete-btn" @click="updateTrans()">
             <img id="logo" src="/img/editar.png" alt="Editar">
           </button>
           </router-link>
@@ -61,7 +61,8 @@
     data() {
     return {
       reserva: [],
-      login: ""
+      login: "",
+      iduser: ""
     }
   },
   props: {
@@ -89,11 +90,12 @@
         headers: {  "Authorization" : "Bearer "+this.login }
       });
     },
-    async updateTrans(event, id) {
-      
+    async updateTrans() {
+
     },
   },
   mounted(){
+    this.iduser = this.getCookie("idusuario");
     this.login = this.getCookie("loginusuario");
   }
 }
@@ -106,6 +108,13 @@
     color: #999;
   }
 
+  .valor {
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    padding: 15px 0px 15px 0px
+  }
+
   #burger-table {
     max-width: 1200px;
   }
@@ -113,6 +122,8 @@
   #burger-table-heading,
   #burger-table-rows,
   .burger-table-row {
+    background: rgb(2,0,36);
+background: linear-gradient(180deg, rgb(231, 230, 213) 0%, #f1eedd 100%);
     display: flex;
     flex-wrap: wrap;
   }
@@ -126,6 +137,9 @@
   .burger-table-row {
     width: 100%;
     padding: 0px 12px 0px 12px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
   }
 
   #burger-table-heading div,
@@ -139,11 +153,13 @@
 
   #burger-table-heading .order-id,
   .burger-table-row .order-number {
+    
     width: 3%;
   }
 
   .burger-table-row .order-number {
-    padding: 12px 0px 12px 0px;
+    font-size: 12px;
+    padding: 20px 0px 12px 0px;
   }
 
   #burger-table-heading .order-tipo,
@@ -152,7 +168,7 @@
   }
 
   .burger-table-row .order-tipo {
-    padding: 12px 0px 12px 0px;
+    padding: 15px 0px 12px 0px;
   }
 
   #burger-table-heading .order-data,
@@ -161,7 +177,7 @@
   }
 
   .burger-table-row .order-data {
-    padding: 0px 0px 12px 0px;
+    padding: 5px 0px 5px 0px;
   }
 
   #burger-table-heading .order-status,
