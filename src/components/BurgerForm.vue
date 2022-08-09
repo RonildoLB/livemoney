@@ -116,6 +116,8 @@ export default {
         console.log(resp.data.id)
       }
 
+      console.log(this.datas);
+
       var data4 = new Date(this.datas);
 
       console.log(data4);
@@ -129,6 +131,8 @@ export default {
         type: this.type,
         value: this.value 
       }
+
+      console.log(data);
 
       const dataJson = JSON.stringify(data)    
 

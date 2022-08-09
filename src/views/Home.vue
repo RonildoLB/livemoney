@@ -133,10 +133,15 @@ export default {
       var date;
       var date2;
       for(var i = 0; i<this.transacoes.length; ++i){
+      
       date = this.transacoes[i]["date"];
+      console.log(date);
       date2 = new Date(date);
+      console.log(date2);
       date2.setDate(date2.getDate()+1);
+      console.log(date2);
       this.transacoes[i]["date"] = date2.toLocaleDateString();
+      console.log(this.transacoes[i]["date"]);
     }
     
     }
