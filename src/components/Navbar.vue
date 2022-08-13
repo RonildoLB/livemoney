@@ -4,13 +4,18 @@
       <div style="width: 100%">
         <div style="width: 50%">
           <div v-if="cookie">
-            <button @click="apagaCookie()">SAIR</button>
-            <div><p class="bem-vindo">&nbsp;&nbsp;Bem-vindo,&nbsp;{{nomecookie}}<br>&nbsp;&nbsp;{{emailcookie}}</p></div>
+            <div style="margin-right: 8px;">
+              <button @click="apagaCookie()" style="padding-right: 10px;">SAIR</button>
+            </div>
+            <div>
+              <p class="bem-vindo">Bem-vindo,&nbsp;{{nomecookie}}<br>{{emailcookie}}</p>
+            </div>
           </div>
           <div v-else>
             <router-link to="/login">
             <button class="login-btn"  @click="this.mostrar_btn = !this.mostrar_btn">LOGIN</button>
-            </router-link></div>
+            </router-link>
+          </div>
         </div>
         <div style="width: 50%; justify-content: flex-end;">
           <router-link to="/transacao"><button v-show="cookie">ADICIONAR TRANSAÇÃO</button></router-link>
@@ -50,15 +55,13 @@ export default {
 <style scoped>
   div {
     display: flex;
+    flex-wrap: wrap;
   }
 
    #nav {
     background-color: #fcce03;
     border-bottom: 1px solid #fce303;
     padding: 15px 50px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
     width: 100%;
   }
 

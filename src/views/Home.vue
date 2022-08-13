@@ -2,13 +2,19 @@
   <div>
     <Navbar :cookie="cookie" :emailcookie="emailcookie" :nomecookie="nomecookie" />
     <Banner :saldo_dia="saldo_dia" :receita_dia="receita_dia" :despesa_dia="despesa_dia" />
-    <div id="nav-date">
-      <h1><a @click="subdia()"><img src="/img/setaesquerda.png"></a>&nbsp;&nbsp;&nbsp;
-        {{date2}}
-      &nbsp;&nbsp;&nbsp;<a @click="adicionardia()"><img src="/img/setadireita.png"></a></h1>
+    <div class="nav">
+      <div id="nav-date" v-show="mostrar">
+        <h1><button class="btn_setas" @click="subdia()">&lt;</button>&nbsp;&nbsp;&nbsp;
+          {{date2}}
+        &nbsp;&nbsp;&nbsp;<button class="btn_setas" @click="adicionardia()">&gt;</button></h1>
+      </div>
+      <div>
+        <button class="mostrar_btn" v-if="mostrar" @click="mostrarBtn()">Mostrar todas as transações</button>
+        <button class="mostrar_btn" v-else @click="mostrarBtn()">Mostrar por datas</button>
+      </div>
     </div>
     <div class="main-container">
-      <Dashboard @reloadPage="getLista"  :transacoes="transacoes" :status="status" :date2="date2" :exist="exist" :loginuser="loginuser"/>
+      <Dashboard @reloadPage="getLista"  :trans_exist="trans_exist" :mostrar="mostrar" :transacoes="transacoes" :status="status" :date2="date2" :exist="exist" :loginuser="loginuser"/>
     </div>
   </div>
 </template>
@@ -40,9 +46,14 @@ export default {
       status: null,
       exist: true,
       loginuser: "",
+      mostrar: true,
+      trans_exist: false
     }
   },
   methods: {
+    mostrarBtn() {
+      this.mostrar = !this.mostrar;
+    },
     getCookie(nome) {
       var nomeCookie = nome + "=";
       var ca = document.cookie.split(';');
@@ -93,6 +104,8 @@ export default {
 
       this.transacoes = data.data
 
+      this.alternar();
+
       this.calcSaldo();
 
       this.formatoData();
@@ -137,6 +150,12 @@ export default {
       this.transacoes[i]["date"] = date2.toLocaleDateString();
     }
     
+    },
+    async alternar() {
+      if(this.transacoes.length == 0){
+        this.trans_exist = false;
+      }
+      else { this.trans_exist = true; }
     }
   },
   mounted () {
@@ -151,13 +170,53 @@ export default {
 </script>
 
 <style scoped>
-  a {
-    cursor: pointer;
-  }
 
-  #nav-date {
+  .nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 25px;
   }
+
+  .mostrar_btn {
+    background-color: rgb(15, 20, 94);
+    border: none;
+    color: #ffffff;
+    padding: 4px 8px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+
+  .btn_setas {
+    background-color: #fcfcda;
+    color: #000;
+    padding: 0px 9px;
+    border: 1px solid #222;
+    font-family:'Courier New', Courier, monospace;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 100%;
+    transition: .5s;
+  }
+
+  .btn_setas:hover {
+    color: #000;
+    border: 1px solid #000;
+    background-color: #fcce03bf;
+    
+  }
+
+  .btn_setas:active {
+    color: #c2a556;
+    background-color: #52450e;
+    transition: .0s
+  }
+
   #nav-date h1 {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-align: center;
@@ -169,6 +228,7 @@ export default {
     color: #000;
     align-items: baseline;
     text-decoration: none;
+    cursor: pointer;
     margin: 12px;
     transition: .5s;
   }

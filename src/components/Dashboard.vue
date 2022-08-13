@@ -1,7 +1,7 @@
 <template>
 <div>
   <h2 style="margin-bottom: 10px">Transações: </h2>
-  <div id="burger-table" v-if="transacoes">
+  <div id="burger-table" v-if="trans_exist">
     <div>
       <div id="burger-table-heading">
         <div class="order-id">#:</div>
@@ -14,8 +14,8 @@
       </div>
     </div>
     <div id="burger-table-rows">
-      <div class="burger-table-row" v-for="transacao in transacoes" :key="transacao.id">
-        <template v-if="transacao.date === date2">
+      <div class="burger-table-row"  v-for="transacao in transacoes" :key="transacao.id">
+        <template v-if="(transacao.date === date2) || !mostrar">
         <div class="order-number" >{{ transacao.id }}</div>
         <div class="valor">{{ transacao.description }}</div>
         <div class="valor">R$ {{ transacao.value.toFixed(2).toString().replace(".", ",") }}</div>
@@ -71,6 +71,8 @@
     status: Object,
     date2: String,
     exist: Boolean,
+    mostrar: Boolean,
+    trans_exist: Boolean
   },
   emits: ['reloadPage'],
   methods: {
@@ -92,7 +94,7 @@
     },
     async updateTrans() {
 
-    },
+    }
   },
   mounted(){
     this.iduser = this.getCookie("idusuario");
