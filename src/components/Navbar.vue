@@ -61,7 +61,7 @@ export default {
    #nav {
     background-color: #fcce03;
     border-bottom: 1px solid #fce303;
-    padding: 15px 50px;
+    padding: 15px 20px;
     width: 100%;
   }
 
@@ -70,10 +70,6 @@ export default {
     font-size:15px;
     font-weight: bold;
     color: #333;
-  }
-
-  .login-btn {
-    justify-self: flex-start;
   }
 
   #nav button {

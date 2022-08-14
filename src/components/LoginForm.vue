@@ -79,8 +79,8 @@ export default {
        document.cookie = "nomeusuario = "+data2.name+"; path='/'";
 
         this.msg = "Login.";
-        setTimeout(() => this.msg = "", 2000);
-        setTimeout(()=>{ this.$router.push('/');}, 2000);
+        setTimeout(() => this.msg = "", 1000);
+        setTimeout(()=>{ this.$router.push('/');}, 1000);
         // limpar campos
         this.email = ""
         this.password = ""

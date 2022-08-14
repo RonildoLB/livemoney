@@ -4,9 +4,9 @@
     <Banner :saldo_dia="saldo_dia" :receita_dia="receita_dia" :despesa_dia="despesa_dia" />
     <div class="nav">
       <div id="nav-date" v-show="mostrar">
-        <h1><button class="btn_setas" @click="subdia()">&lt;</button>&nbsp;&nbsp;&nbsp;
+        <h1><button class="btn_setas" @click="subdia()">&lt;</button>&nbsp;
           {{date2}}
-        &nbsp;&nbsp;&nbsp;<button class="btn_setas" @click="adicionardia()">&gt;</button></h1>
+        &nbsp;<button class="btn_setas" @click="adicionardia()">&gt;</button></h1>
       </div>
       <div>
         <button class="mostrar_btn" v-if="mostrar" @click="mostrarBtn()">Mostrar todas as transações</button>
@@ -170,6 +170,9 @@ export default {
 </script>
 
 <style scoped>
+  .icon-home{
+    color: #ff0000;
+  }
 
   .nav {
     display: flex;
@@ -192,11 +195,10 @@ export default {
   }
 
   .btn_setas {
+    padding: 0px 10px;
     background-color: #fcfcda;
     color: #000;
-    padding: 0px 9px;
     border: 1px solid #222;
-    font-family:'Courier New', Courier, monospace;
     font-size: 32px;
     font-weight: bold;
     cursor: pointer;
