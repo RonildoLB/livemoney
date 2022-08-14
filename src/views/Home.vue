@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar :cookie="cookie" :emailcookie="emailcookie" :nomecookie="nomecookie" />
-    <Banner :saldo_dia="saldo_dia" :receita_dia="receita_dia" :despesa_dia="despesa_dia" />
+    <Banner :trans_exist="trans_exist" :saldo_dia="saldo_dia" :receita_dia="receita_dia" :despesa_dia="despesa_dia" />
     <div class="nav">
       <div id="nav-date" v-show="mostrar">
         <h1><button class="btn_setas" @click="subdia()">&lt;</button>&nbsp;
@@ -170,9 +170,6 @@ export default {
 </script>
 
 <style scoped>
-  .icon-home{
-    color: #ff0000;
-  }
 
   .nav {
     display: flex;

@@ -1,13 +1,20 @@
 <template>
-  <div class="main-banner" >
-    <div class="item" style="color: rgb(180, 245, 178);">
-      <h2>Receitas: R$ {{ receita_dia.toFixed(2).replace(".", ",") }}</h2>
+  <div>
+    <div class="main-banner" v-if="trans_exist">
+      <div class="item" style="color: rgb(180, 245, 178);">
+        <h2>Receitas: R$ {{ receita_dia.toFixed(2).replace(".", ",") }}</h2>
+      </div>
+      <div class="item" style="color: rgb(241, 185, 185);">
+        <h2>Despesas: R$ {{ despesa_dia.toFixed(2).replace(".", ",") }}</h2>
+      </div>
+      
+      <div class="item"><hr><br><h2>Saldo: R$ {{ saldo_dia.toFixed(2).replace(".", ",") }}</h2></div>
     </div>
-    <div class="item" style="color: rgb(241, 185, 185);">
-      <h2>Despesas: R$ {{ despesa_dia.toFixed(2).replace(".", ",") }}</h2>
+    <div v-else class="main-banner">
+      <div class="item">
+        <h2><br>Carregando...</h2>
+      </div>
     </div>
-    
-    <div class="item"><hr><br><h2>Saldo: R$ {{ saldo_dia.toFixed(2).replace(".", ",") }}</h2></div>
   </div>
 </template>
 
@@ -23,7 +30,8 @@
   props: {
     saldo_dia: Number,
     receita_dia: Number,
-    despesa_dia: Number
+    despesa_dia: Number,
+    trans_exist: Boolean
   }
 }
 </script>

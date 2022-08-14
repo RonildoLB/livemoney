@@ -2,12 +2,12 @@
   <div style="width: 100%">
     <div id="nav">
       <div style="width: 100%">
-        <div style="width: 50%">
+        <div style="width: 35%">
           <div v-if="cookie">
-            <div style="margin-right: 8px;">
+            <div style="margin-right: 8px; min-width: 0px;">
               <button @click="apagaCookie()" style="padding-right: 10px;">SAIR</button>
             </div>
-            <div>
+            <div style="min-width: 0px;">
               <p class="bem-vindo">Bem-vindo,&nbsp;{{nomecookie}}<br>{{emailcookie}}</p>
             </div>
           </div>
@@ -17,7 +17,10 @@
             </router-link>
           </div>
         </div>
-        <div style="width: 50%; justify-content: flex-end;">
+        <div style="width: 30%; justify-content: center; align-items: center; min-width: 0px;">
+          <img style="height: 35px" src="/img/livemoney.png" alt="">
+        </div>
+        <div style="width: 35%; justify-content: flex-end; min-width: 0px;">
           <router-link to="/transacao"><button v-show="cookie">ADICIONAR TRANSAÇÃO</button></router-link>
         </div>
       </div>
@@ -56,6 +59,7 @@ export default {
   div {
     display: flex;
     flex-wrap: wrap;
+    min-width: 200px;
   }
 
    #nav {
@@ -83,7 +87,7 @@ export default {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
     font-weight: bold;
-    margin: 4px 2px;
+    margin: 4px 0px;
     transition-duration: 0.4s;
     cursor: pointer;
     border-radius: 6px;

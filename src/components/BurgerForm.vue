@@ -22,7 +22,11 @@
       </div>
       <div class="input-container" >
         <label for="data">Digite a data:</label>
-        <input type="text" name="date" id="date" v-model="datas" placeholder="Digite a data" required="required">
+        <div style="display:flex; flex-direction: row;">
+          <input type="text" name="dia" id="dia" style="max-width: 7ch" v-model="dia" placeholder="Dia" required="required"><h2>/</h2>
+          <input type="text" name="mes" id="mes" style="max-width: 7ch" v-model="mes" placeholder="Mês" required="required"><h2>/</h2>
+          <input type="text" name="ano" id="ano" style="max-width: 10ch" v-model="ano" placeholder="Ano" required="required">
+        </div>
       </div>
       <div id="opcionais-container" class="input-container">
         <label id="opcionais-title" for="opcionais">Tipo:</label>
@@ -52,8 +56,9 @@ export default {
       description: null,
       value: null,
       type: null,
-      datas: new Date().toLocaleDateString(),
-      date: null,
+      dia: ("0" + new Date().getDate()).slice(-2),
+      mes: ("0" + (new Date().getMonth() + 1)).slice(-2),
+      ano: new Date().getFullYear(),
       categories: null,
       category_id: null,
       categoria_name: null,
@@ -114,11 +119,7 @@ export default {
         this.category_id = resp.data.id
       }
 
-      var dia  = this.datas.split("/")[0];
-      var mes  = this.datas.split("/")[1];
-      var ano  = this.datas.split("/")[2];
-
-      var data5 =  ("0"+mes).slice(-2) + '/' + ("0"+dia).slice(-2) + '/' + ano;
+      var data5 =  this.mes.toString() + '/' + this.dia.toString() + '/' + this.ano.toString();
 
       var data4 = new Date(data5);
 
@@ -149,16 +150,21 @@ export default {
 
       console.log(res)
 
-      this.msg = "Transação adicionada."
+      if(res.message == "The given data was invalid."){
+        this.msg = "Transação não adicionada. Data inválida."
+        setTimeout(() => this.msg = "", 3000)
+      }
+      else{
+        this.msg = "Transação adicionada."
 
-      // clear message
-      setTimeout(() => this.msg = "", 3000)
+        setTimeout(() => this.msg = "", 3000)
 
-      // limpar campos
-      this.description = ""
-      this.value = ""
-      this.category_id = ""
-      this.type = ""
+        // limpar campos
+        this.description = ""
+        this.value = ""
+        this.category_id = ""
+        this.type = ""
+      }
       
     },
     async newCat(event) {

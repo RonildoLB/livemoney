@@ -23,12 +23,12 @@
                 <div class="trans-valor">
                   <div class="burger-table-row">
                     <div>
-                      <div class="titul-text">Valor</div>
+                      <div class="titul-text">Valor (R$)</div>
                       <div v-if="transacao.type == this.receita" class="descri-valor-r">
-                        R$ {{ transacao.value.toFixed(2).toString().replace(".", ",") }}
+                        {{ transacao.value.toFixed(2).toString().replace(".", ",") }}
                       </div>
                       <div v-if="transacao.type == this.despesa" class="descri-valor-d">
-                        R$ -{{ transacao.value.toFixed(2).toString().replace(".", ",") }}
+                        -{{ transacao.value.toFixed(2).toString().replace(".", ",") }}
                       </div>
                     </div>
                   </div>
@@ -53,7 +53,7 @@
                   </div>
                   <div>
                     <button class="delete-btn" @click="deleteTrans(transacao.id); $emit('reloadPage')">
-                      <img class="deleteicons" src="/img/lixeira.svg" alt="Excluir">
+                      <center><img class="deleteicons" src="/img/lixeira.svg" alt="Excluir"></center>
                     </button>
                   </div>
                 </div>
