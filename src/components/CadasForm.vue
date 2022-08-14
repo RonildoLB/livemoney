@@ -5,15 +5,15 @@
     <form id="login-form" method="POST" @submit="loginUser">
         <div class="input-container" >
         <label for="valor">Digite seu nome:</label>
-        <input type="text" name="name" id="name" v-model="name" placeholder="Digite seu nome">
+        <input type="text" name="name" id="name" v-model="name" placeholder="Digite seu nome" required="required">
       </div>
       <div class="input-container" >
         <label for="valor">Digite seu E-mail:</label>
-        <input type="text" name="email" id="email" v-model="email" placeholder="Digite seu E-mail">
+        <input type="text" name="email" id="email" v-model="email" placeholder="Digite seu E-mail" required="required">
       </div>
       <div class="input-container" >
         <label for="valor">Digite sua senha:</label>
-        <input type="password" name="password" id="password" v-model="password" placeholder="Digite sua senha">
+        <input type="password" name="password" id="password" v-model="password" placeholder="Digite sua senha" required="required">
       </div>
       <div class="button-container">
         <input class="submit-btn" type="submit" value="Cadastrar">
