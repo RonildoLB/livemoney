@@ -103,7 +103,7 @@ export default {
       this.value = this.transaltera.value;
       this.category_id = this.transaltera.category_id;
       var datas = new Date(this.transaltera.date);
-      this.dia = datas.getDate();
+      this.dia = 1 + datas.getDate();
       this.mes = 1 + datas.getMonth();
       this.ano = datas.getFullYear();
       this.type = this.transaltera.type;
