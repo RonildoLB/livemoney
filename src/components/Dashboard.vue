@@ -41,12 +41,12 @@
                 </div>
                 <div class="trans-descri">
                   <div class="titul-text">Categoria</div>
-                  <div class="descri-text">{{ transacao.category_id }}</div>
+                  <div class="descri-text">{{ transacao.category }}</div>
                 </div>
                 <div class="order-btn">
                   <div>
                     <router-link to="/alterar">
-                      <button class="delete-btn" @click="updateTrans()">
+                      <button class="delete-btn" @click="updateTrans(transacao.id)">
                         <img class="deleteicons" src="/img/editar.svg" alt="Editar">
                       </button>
                     </router-link>
@@ -116,11 +116,43 @@
         headers: {  "Authorization" : "Bearer "+this.login }
       });
     },
-    async updateTrans() {
+    async updateTrans(id) {
+      document.cookie = "id_alterar = "+id+"; path='/'";
 
     },
     async alternar(transacao) {
-      transacao.status = !transacao.status;
+
+      var dia  = transacao.date.split("/")[0];
+      var mes  = transacao.date.split("/")[1];
+      var ano  = transacao.date.split("/")[2];
+      var data5 =  ("0"+mes).slice(-2) + '/' + ("0"+dia).slice(-2) + '/' + ano;
+      var data4 = new Date(data5).toISOString();
+
+      var statusus = !transacao.status;
+      const data = {
+        id: transacao.id,
+        user_id: transacao.user_id,
+        category_id: transacao.category_id,
+        description: transacao.description,
+        date: data4,
+        status: statusus,
+        type: transacao.type,
+        value: transacao.value
+      }
+
+      const dataJson = JSON.stringify(data)
+
+        const req2 = await fetch(`https://teste2.flowcash.app/api/transactions/${transacao.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type" : "application/json",
+                    "Authorization" : "Bearer "+this.login,
+                    "Accept" : "application/json" },
+          body: dataJson
+        });
+        const res2 = await req2.json();
+        console.log(res2);
+        
+        transacao.status = !transacao.status;
     }
   },
   mounted(){

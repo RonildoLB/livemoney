@@ -87,6 +87,8 @@ export default {
 
       const data = await req.json()
 
+      console.log(data)
+
       if(data.data.length == 0) {
         this.exist = false;
       }
@@ -116,7 +118,7 @@ export default {
       for(var i in this.transacoes){
         for(var j in this.status){
           if(this.transacoes[i].category_id === this.status[j].id){
-            this.transacoes[i].category_id = this.status[j].name;
+            this.transacoes[i].category = this.status[j].name;
           }
         }
       }

@@ -51,8 +51,11 @@ export default {
   name: "BurgerForm",
   data() {
     return {
+      nozes: "0",
       loginusuario: null,
       id_usuario: null,
+      idalterar: null,
+      transaltera: null,
       description: null,
       value: null,
       type: null,
@@ -65,8 +68,12 @@ export default {
       name: null,
       status: "0",
       msg: null,
-      criacategoria: 1
+      criacategoria: 1,
+      alt: this.alterar
     }
+  },
+  props: {
+    alterar: Boolean
   },
   methods: {
     getCookie(nome) {
@@ -78,6 +85,29 @@ export default {
         if(c.indexOf(nomeCookie) == 0) return c.substring(nomeCookie.length, c.length);
       }
       return null;
+    },
+    async getTrans() {
+      var id = this.idalterar;
+      const req3 = await fetch(`https://teste2.flowcash.app/api/transactions/${id}`, {
+        method: "GET",
+        headers: {  "Content-Type" : "application/json",
+                    "Authorization" : "Bearer "+this.loginusuario,
+                    "Accept" : "application/json" },
+      })
+
+      const data3 = await req3.json();
+
+      this.transaltera = data3.data;
+
+      this.description = this.transaltera.description;
+      this.value = this.transaltera.value;
+      this.category_id = this.transaltera.category_id;
+      var datas = new Date(this.transaltera.date);
+      this.dia = datas.getDate();
+      this.mes = 1 + datas.getMonth();
+      this.ano = datas.getFullYear();
+      this.type = this.transaltera.type;
+
     },
     async getCat() {
       this.loginusuario = this.getCookie("loginusuario");
@@ -118,38 +148,59 @@ export default {
 
         this.category_id = resp.data.id
       }
-
       var data5 =  this.mes.toString() + '/' + this.dia.toString() + '/' + this.ano.toString();
 
       var data4 = new Date(data5);
+      if(this.alt == true) {
+        const data = {
+          id: this.idalterar,
+          user_id: this.id_usuario,
+          category_id: this.category_id,
+          description: this.description,
+          date: data4,
+          status: "0",
+          type: this.type,
+          value: this.value
+        }
 
-      const data = {
-        user_id: this.id_usuario,
-        category_id: this.category_id,
-        description: this.description,
-        date: data4,
-        status: "0",
-        type: this.type,
-        value: this.value 
-      }
+        console.log(data);
 
-      console.log(data);
+        const dataJson = JSON.stringify(data);  
 
-      const dataJson = JSON.stringify(data)    
-
-
-      const req = await fetch('https://teste2.flowcash.app/api/transactions', {
-        method: "POST",
-        headers: {  "Content-Type" : "application/json",
+        var id = this.idalterar;
+        const req = await fetch(`https://teste2.flowcash.app/api/transactions/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type" : "application/json",
                     "Authorization" : "Bearer "+this.loginusuario,
                     "Accept" : "application/json" },
-        body: dataJson
-      })
+          body: dataJson
+        });
+        var res = await req.json();
+      }
+      else {
+        const data = {
+          user_id: this.id_usuario,
+          category_id: this.category_id,
+          description: this.description,
+          date: data4,
+          status: "0",
+          type: this.type,
+          value: this.value
+        }
 
-      const res = await req.json()
+        console.log(data);
+        const dataJson = JSON.stringify(data);  
+        const req = await fetch('https://teste2.flowcash.app/api/transactions', {
+          method: "POST",
+          headers: {  "Content-Type" : "application/json",
+                      "Authorization" : "Bearer "+this.loginusuario,
+                      "Accept" : "application/json" },
+          body: dataJson
+        })
+        var res = await req.json()
+      }
 
       console.log(res)
-
       if(res.message == "The given data was invalid."){
         this.msg = "Transação não adicionada. Data inválida."
         setTimeout(() => this.msg = "", 3000)
@@ -164,8 +215,9 @@ export default {
         this.value = ""
         this.category_id = ""
         this.type = ""
+        this.alt = false
       }
-      
+
     },
     async newCat(event) {
       if (event.target.value === "Criar categoria"){
@@ -176,6 +228,10 @@ export default {
   },
   mounted () {
     this.getCat()
+    if(this.alt == true){
+      this.idalterar = this.getCookie("id_alterar");
+      this.getTrans();
+    }
   },
   components: {
     Message

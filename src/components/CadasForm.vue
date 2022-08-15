@@ -60,18 +60,29 @@ export default {
 
       const res = await req.json()
 
-      console.log(res)
+      var texto = JSON.stringify(res);
 
-      this.msg = "Usuário Cadastrado."
+      this.nozes = texto
 
-      // clear message
-      setTimeout(() => this.msg = "", 3000);
+      if(texto.indexOf("The email has already been taken.") != -1){
+        this.msg = "Não foi possível cadastrar. E-mail já cadastrado em nosso banco de dados. Faça login ou tente novamente com um e-mail diferente."
+        setTimeout(() => this.msg = "", 10000)
+      }
+      else{
+        this.msg = "Usuário Cadastrado."
 
-      setTimeout(()=>{ this.$router.push('/');}, 3000)
+        // clear message
+        setTimeout(() => this.msg = "", 3000);
 
-      // limpar campos
-      this.email = ""
-      this.password = ""
+        setTimeout(()=>{ this.$router.push('/');}, 3000)
+
+        // limpar campos
+        this.name = ""
+        this.email = ""
+        this.password = ""
+      }
+
+      
       
     }
   },
